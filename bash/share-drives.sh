@@ -29,8 +29,8 @@ for dir in $DRIVES_DIR*/; do
   echo "create mask = 0777" >> $SMB_CONFIG_DIR$SMB_CONFIG_FILE.new
   echo "directory mask = 0777" >> $SMB_CONFIG_DIR$SMB_CONFIG_FILE.new
   echo "browseable = Yes" >> $SMB_CONFIG_DIR$SMB_CONFIG_FILE.new
-  echo "valid users @users" >> $SMB_CONFIG_DIR$SMB_CONFIG_FILE.new
-  echo "force user = osmc" >> $SMB_CONFIG_DIR$SMB_CONFIG_FILE.new
+  echo "guest only = Yes" >> $SMB_CONFIG_DIR$SMB_CONFIG_FILE.new
+  echo "guest ok = Yes" >> $SMB_CONFIG_DIR$SMB_CONFIG_FILE.new
   echo "" >> $SMB_CONFIG_DIR$SMB_CONFIG_FILE.new
 done
 
