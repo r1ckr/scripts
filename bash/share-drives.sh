@@ -11,13 +11,11 @@ SMB_CONFIG_FILE=smb-shares.conf
 
 echo Sharing all drives...
 
-function restart_samba {
-	echo "Restarting Samba..."
-    service samba restart
-    echo "Samba restarted"
+function reload_samba {
+	echo "Reloading Samba..."
+    smbcontrol smbd reload-config
+    echo "Samba reloaded"
 }
-
-
 
 for dir in $DRIVES_DIR*/; do
   drive_name=`echo $dir | awk -F '/' '{print $3}'`
@@ -37,7 +35,7 @@ done
 if [ ! -f $SMB_CONFIG_DIR$SMB_CONFIG_FILE ]; then
   echo "Config file doesn't exist, creating new"
   mv $SMB_CONFIG_DIR$SMB_CONFIG_FILE.new $SMB_CONFIG_DIR$SMB_CONFIG_FILE
-  restart_samba
+  reload_samba
 else
   echo "Comparing result with current config..."
   diff_result=`diff $SMB_CONFIG_DIR$SMB_CONFIG_FILE.new $SMB_CONFIG_DIR$SMB_CONFIG_FILE`
@@ -48,7 +46,7 @@ else
   else
     echo "Config has changed, overriding it..."
     mv $SMB_CONFIG_DIR$SMB_CONFIG_FILE.new $SMB_CONFIG_DIR$SMB_CONFIG_FILE
-    restart_samba
+    reload_samba
   fi
 fi
 
